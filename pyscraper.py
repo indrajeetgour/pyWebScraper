@@ -17,21 +17,25 @@ def extract_site_response(res):
     # start parsing the site response
     soup = bs4.BeautifulSoup(res.text, 'lxml')
     # print(soup.prettify())
-    for article in soup.find_all('div', class_='blog-posts hfeed container index-post-wrap'):
-        # print(article.article.prettify())
-        for oneArticle in article.article.find_all('div', class_='entry-header'):
-            print(oneArticle.h2.a.text)
+    only_dev = soup.find('div', class_='blog-posts hfeed container index-post-wrap')
+    # print(only_dev.article.prettify())
+
+    print(only_dev.article.find('div', class_='entry-header').h2.a.text)
+    print(only_dev.article.find('div', class_='entry-header').h2.a['href'])
+    print(only_dev.article.find('div', class_='entry-header').p.text)
+
+    # for article in soup.find_all('div', class_='blog-posts hfeed container index-post-wrap'):
+    #     # print(article.article.prettify())
+    #     for oneArticle in article.article.find_all('div', class_='entry-header'):
+    #         print(oneArticle.h2.a.text)
 
 
 if __name__ == '__main__':
+    # python request for site
     response = get_site_response()
 
+    # extract the required information
     extract_site_response(response)
-
-
-
-
-
 
 """
 print(soup.select('.widget-content'))
