@@ -17,12 +17,18 @@ def extract_site_response(res):
     # start parsing the site response
     soup = bs4.BeautifulSoup(res.text, 'lxml')
     # print(soup.prettify())
-    only_dev = soup.find('div', class_='blog-posts hfeed container index-post-wrap')
+    # only_dev = soup.find('div', class_='blog-posts hfeed container index-post-wrap')
     # print(only_dev.article.prettify())
 
-    print(only_dev.article.find('div', class_='entry-header').h2.a.text)
-    print(only_dev.article.find('div', class_='entry-header').h2.a['href'])
-    print(only_dev.article.find('div', class_='entry-header').p.text)
+    # for only_dev in soup.find_all('div', class_='blog-posts hfeed container index-post-wrap'):
+    div_section = soup.find('div', class_='sidebar widget-ready section').div
+    for only_dev in div_section.find_all('article'):
+        print("Post URL: " + only_dev.find('div', class_='entry-header').h2.a['href'])
+        print("Post Heading: " + only_dev.find('div', class_='entry-header').h2.a.text+'\n\n')
+
+        # print("Post URL: " + only_dev.article.find('div', class_='widget-content').h2.a['href'])
+        # print("Post Heading: " + only_dev.article.find('div', class_='entry-header').h2.a.text)
+        # print("Short description: " + only_dev.article.find('div', class_='entry-header').p.text)
 
     # for article in soup.find_all('div', class_='blog-posts hfeed container index-post-wrap'):
     #     # print(article.article.prettify())
